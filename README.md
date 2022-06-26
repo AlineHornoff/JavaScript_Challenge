@@ -29,4 +29,4 @@ THis challenge consits of 2 parts - Level 1 and Level 2
 
 ### Contents
 UFO_Level_1 - contains HTML, css, images and js
-UFO_Level_2 - contains
+UFO_Level_2 - contains HTML, css, images and js

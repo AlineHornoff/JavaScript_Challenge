@@ -6,62 +6,59 @@ var tableData = data;
 // Create reference to table data
 var UFO_table = d3.select("tbody");
 
-// Set UFO Sighting values fore ach column 
-tableData.forEach(function(UFO_sighting) {
-    // Check values
-    console.log(UFO_sighting);
-
-    // For each table row 'tr' append one UFO sighting value
-    var row = UFO_table.append("tr");
-
-    // Utilise 'Object.entries' to console.log each UFO sighting value
-    Object.entries(UFO_sighting).forEach(function([key, value]) {
-        // Check values
-        console.log(key, value);
-
-        // Append a cell to the row for each value
-        var Cell = row.append("td");
-        Cell.text(value);
-    });
-});
-
-// Select the button
-var button = d3.select("#filter-btn");
-button.on("click", function() {
-
+function clearBuildTable(tableData) {
     UFO_table.html("");
+        
+    // Set UFO Sighting values for each column 
+        tableData.forEach(function(UFO_sighting) {
+            // Check values
+            console.log(UFO_sighting);
 
-    // Select input date
-    var InputElement = d3.select("#datetime");
+            // For each table row 'tr' append one UFO sighting value
+            var row = UFO_table.append("tr");
 
-    // Get value property of date
-    var InputValue = InputElement.property("value");
+            // Utilise 'Object.entries' to console.log each UFO sighting value
+            Object.entries(UFO_sighting).forEach(function([key, value]) {
+                // Check values
+                console.log(key, value);
 
-    // Console.log input value
-    console.log(InputValue);
-
-    // Filter data with datetime equal to input value
-    var FilteredData = tableData.filter(Sighting => Sighting.datetime === InputValue);
-
-    // Console.log filter values
-    console.log(FilteredData);
-
-    FilteredData.forEach(function(Selections) {
-        // Console.log Selections
-        console.log(Selections);
-
-        // Append one table row 'tr' for each UFO Sighting Object
-        var row = UFO_table.append("tr");
-
-        // Utilise 'Object.entries' to console.log each UFO sighting value
-        Object.entries(Selections).forEach(function([key, value]) {
-            // Console.log key and value
-            console.log(key, value);
-
-            // Append a cell to the row for ach value
-            var Cell = row.append("td");
-            Cell.text(value);
-
+                // Append a cell to the row for each value
+                var Cell = row.append("td");
+                Cell.text(value);
         });
     });
-});  
+};
+
+
+clearBuildTable(tableData);
+
+// Define a function to filter
+function clickFilter(){
+    // Define reference to datetime
+    var inputDate = d3.select("#datetime").property("value");
+
+    // Define reference to city
+    var inputCity = d3.select("#city").property("value").toLowerCase();
+
+    // Define reference to state
+    var inputState = d3.select("#state").property("value").toLowerCase();
+
+    // Define reference to country
+    var inputCountry = d3.select("#country").property("value");
+
+    // Define reference to sahpe
+    var inputShape = d3.select("#shape").property("value");
+
+    // Declare variable
+    let FilteredData = tableData;
+    if (inputDate) {FilteredData = FilteredData.filter(row=> row.datetime === inputDate); }
+    if (inputCity) {FilteredData = FilteredData.filter(row=> row.city === inputCity); }
+    if (inputState) {FilteredData = FilteredData.filter(row=> row.state === inputState); }
+    if (inputCountry) {FilteredData = FilteredData.filter(row=> row.country === inputCountry); }
+    if (inputShape) {FilteredData = FilteredData.filter(row=> row.shape === inputShape); }
+    clearBuildTable(FilteredData)
+};
+
+// Select the button
+d3.selectAll("#filter-btn").on("click", clickFilter) 
+

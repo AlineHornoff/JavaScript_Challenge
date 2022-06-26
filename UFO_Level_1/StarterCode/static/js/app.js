@@ -6,7 +6,7 @@ var tableData = data;
 // Create reference to table data
 var UFO_table = d3.select("tbody");
 
-// Set UFO Sighting values fore ach column 
+// Set UFO Sighting values for each column 
 tableData.forEach(function(UFO_sighting) {
     // Check values
     console.log(UFO_sighting);
